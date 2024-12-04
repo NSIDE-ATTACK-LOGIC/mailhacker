@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mailhacker" 
+dynamic = ["version"]
+description = "Command-line tools to mess with emails."
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["email", "mime", "smtp"]
+authors = [
+  {name = "Jonas Lieb (NSIDE ATTACK LOGIC)", email = "info@nsideattacklogic.de" }
+]
+dependencies = [
+  "click",
+  "dnspython",
+  "dkimpy",
+]
+
+[project.optional-dependencies]
+dev = ["black", "isort"]
+
+[project.urls]
+"Homepage" = "https://github.com/NSIDE-ATTACK-LOGIC/mailhacker"
+
+[project.scripts]
+mh = "mailhacker.cli:cli"
+
+[tool.setuptools_scm]
