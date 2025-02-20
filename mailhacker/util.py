@@ -42,6 +42,7 @@ class DummySocket:
 
     def __init__(self, host, port):
         self._last_command: str | None = None
+        self._send_buffer: List[str] = []
 
         self.connect((host, port))
 
@@ -60,8 +61,10 @@ class DummySocket:
         return DummySocket.DummyFile(self)
 
     def _file_readline(self):
-        if self._last_command:
-            cmd = self._last_command.strip().lower()
+        if self._send_buffer:
+            resp = self._send_buffer.pop()
+        elif self._last_command:
+            cmd = self._last_command.strip().lower().split()[0]
             resp = self._dummy_response(cmd)
         else:
             resp = "250 ok"
@@ -73,5 +76,13 @@ class DummySocket:
             return "354 Go ahead."
         elif cmd == "quit":
             return "221 Goodbye."
+        elif cmd == "auth":
+            return "235 Authentication succeeded"
+        elif cmd == "ehlo":
+            self._send_buffer.append("250 AUTH PLAIN LOGIN")
+            self._send_buffer.append("250-SMTPUTF8")
+            self._send_buffer.append("250-SIZE 14680064")
+            return "250-Hello, I'm dummy. Glad to meet you."
 
         return "250 OK"
+
