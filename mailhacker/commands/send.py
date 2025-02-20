@@ -86,7 +86,7 @@ def send(
         # infering the mail server from the FIRST to_addr only
         server = get_mailserver(to_addr[0])
 
-    with smtplib.SMTP() as smtp:
+    with smtplib.SMTP(server) as smtp:
         if verbose:
             smtp.set_debuglevel(1)
 
