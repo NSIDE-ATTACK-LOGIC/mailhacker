@@ -21,7 +21,6 @@ from mailhacker.util import get_mailserver, replace_bare_newlines, DummySocket
     help="(Optional) server name to connect to (default: infer from receiver's address).",
 )
 @click.option(
-    "-p",
     "--port",
     type=int,
     default=25,
