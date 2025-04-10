@@ -86,15 +86,13 @@ def send(
         # infering the mail server from the FIRST to_addr only
         server = get_mailserver(to_addr[0])
 
-    with smtplib.SMTP(host=server if not dry else None) as smtp:
+    with smtplib.SMTP(host=server if not dry else "", port=port if not dry else 0) as smtp:
         if verbose:
             smtp.set_debuglevel(1)
 
         if dry:
             smtp.sock = DummySocket(server, port)  # type: ignore
         else:
-            smtp.connect(server, port)
-
             if tls:
                 smtp.starttls()
 
