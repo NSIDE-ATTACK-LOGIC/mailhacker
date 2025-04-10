@@ -55,6 +55,7 @@ def compose(
 
     msg = EmailMessage()
     msg.set_payload(body_text)
+    msg.set_charset("utf-8")
 
     if html:
         msg.set_type("text/html")
