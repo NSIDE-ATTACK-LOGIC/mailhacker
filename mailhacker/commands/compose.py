@@ -66,7 +66,7 @@ def compose(
     msg["Date"] = format_datetime(datetime.datetime.now())
 
     message_id_domain = parseaddr(from_addr)[1].rpartition("@")[-1]
-    msg["Message-ID"] = make_msgid(idstring="mailhacker", domain=message_id_domain)
+    msg["Message-ID"] = make_msgid(domain=message_id_domain)
 
     if subject:
         msg["Subject"] = subject
